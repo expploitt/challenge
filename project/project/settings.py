@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from environ import Env
+
+env = Env()
+env.read_env(env_file='.env')
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,15 +25,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-%c-32p58(il^e!tfyeat9oljq0(fbngsq$hsv+basi&()6)(k)'
+SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DJANGO_DEBUG', default=False)
 
 ALLOWED_HOSTS = [
-    '4c75-83-37-22-90.eu.ngrok.io',
-    'localhost',
-    '127.0.0.1',
+    '*',
 ]
 
 
@@ -82,8 +85,12 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env('DATABASE_NAME'),
+        'USER': env('DATABASE_USER'),
+        'PASSWORD': env('DATABASE_PASSWORD'),
+        'HOST': env('DATABASE_HOST'),
+        'PORT': env('DATABASE_PORT'),
     }
 }
 
@@ -128,3 +135,22 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Celery configuration
+# https://docs.celeryproject.org/en/latest/userguide/configuration.html
+
+CELERY_BROKER_URL = "redis://redis:6379/0"
+# CELERY TEST
+CELERY_TEST_RUNNER = 'djcelery.contrib.test_runner.CeleryTestSuiteRunner'
+
+# SENDGRIP EMAIL CONFIGURATION
+EMAIL_HOST = env('SENDGRIP_EMAIL_HOST')
+EMAIL_PORT = env('SENDGRIP_EMAIL_PORT')
+EMAIL_HOST_USER = env('SENDGRIP_EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('SENDGRIP_EMAIL_HOST_PASSWORD')
+
+# SLACK CONFIGURATION
+SLACK_TOKEN = env('SLACK_TOKEN')
+
+# EMAIL CHANNEL CONFIG
+EMAIL_SALES = env('EMAIL_SALES')

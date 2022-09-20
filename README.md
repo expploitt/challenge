@@ -38,3 +38,5 @@ The product department has in mind to expand the topics and communication channe
 - CI
 - Commit messages
 - Clear scalability
+
+# Solution
