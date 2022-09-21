@@ -165,7 +165,7 @@ Now open a terminal and run:
 
 Now go to landbot and update the webhook domain variable with the ngrok proxy URL.
 
-Open your browser and visit ngrok_url:8000/index.html
+Open your browser and visit ngrok_url/
 
 > Note: if you are not allow to open, please, update the ALLOWED_HOST variable in django.
 
