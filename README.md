@@ -114,6 +114,17 @@ Environment configuration file. It contains the common django variables for data
 Apart from that, it contains:
 
 ```env_file
+DJANGO_SECRET_KEY=''
+DJANGO_DEBUG=True
+DATABASE_NAME='postgres'
+DATABASE_USER='umishop'
+DATABASE_PASSWORD='umishop'
+DATABASE_HOST='db'
+DATABASE_PORT='5432'
+
+POSTGRES_DB='postgres'
+POSTGRES_USER='umishop'
+POSTGRES_PASSWORD='umishop'
 
 # Sendgrip server configuration. It is necessary to add all the information to allow umishop backend to stablish connection with SendGrip API.
 SENDGRIP_EMAIL_HOST='sendgrip_email_host'
@@ -137,7 +148,12 @@ EMAIL_SALES='example@example.com'
 
 ```bash
 >   git clone https://github.com/hello-umi/backend-challenge.git
+
 >   cd backend-challenge
+
+# Copy the .env example and paste in the following
+>   nano project/.env
+
 # Configure your enviroment variables with sendgrip settings, slack settings.
 >   docker-compose up --build
 ```
