@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import UserSerializer
-from .tasks import send_email
+from .tasks import send_email, send_slack_msg
 
 
 # Create your views here.
@@ -33,6 +33,7 @@ class ChannelView(APIView):
             send_email(question, username, user_email, settings.EMAIL_SALES)
             Response(status=status.HTTP_200_OK)
         elif topic == 'pricing':
-            a = 'a'
+            send_slack_msg(question, settings.SLACK_CHANNEL)
+            Response(status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)

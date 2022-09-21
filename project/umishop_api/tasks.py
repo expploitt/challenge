@@ -18,8 +18,8 @@ def send_email(question, user, user_mail, to):
 
 @shared_task
 def send_slack_msg(message, channel):
-    client.chat_portMesasge(
-        channel="",
+    client.chat_postMessage(
+        channel=channel,
         text=message
     )
 
